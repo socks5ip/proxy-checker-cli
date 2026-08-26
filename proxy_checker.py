@@ -6,6 +6,8 @@ proxy-checker-cli
 纯 Python3，无第三方依赖。
 """
 
+__version__ = '1.0.0'
+
 import argparse
 import json
 import re
@@ -27,7 +29,6 @@ def socks5_connect(proxy_host, proxy_port, target_host, target_port, username=No
     sock.settimeout(timeout)
     sock.connect((proxy_host, proxy_port))
 
-    # greeting
     auth_methods = [0x02, 0x00] if username else [0x00]
     sock.sendall(b'\x05' + bytes([len(auth_methods)]) + bytes(auth_methods))
     resp = sock.recv(2)
@@ -45,8 +46,7 @@ def socks5_connect(proxy_host, proxy_port, target_host, target_port, username=No
     elif resp[1] != 0x00:
         raise ConnectionError('SOCKS5 不接受无认证')
 
-    # request
-    addr = socket.inet_aton(target_host) if re.match(r'^(\\d{1,3}\.){3}\\d{1,3}$', target_host) else b'\x00'
+    addr = socket.inet_aton(target_host) if re.match(r'^(\d{1,3}\.){3}\d{1,3}$', target_host) else b'\x00'
     req = b'\x05\x01\x00' + (b'\x01' + addr if addr != b'\x00' else b'\x03' + bytes([len(target_host)]) + target_host.encode()) + target_port.to_bytes(2, 'big')
     sock.sendall(req)
     r = sock.recv(10)
@@ -72,7 +72,7 @@ def http_tunnel_connect(proxy_host, proxy_port, target_host, target_port, userna
 
 
 def send_http_get(sock, host, path='/json'):
-    req = f'GET {path} HTTP/1.1\r\nHost: {host}\r\nUser-Agent: proxy-checker-cli/1.0\r\nAccept: */*\r\nConnection: close\r\n\r\n'
+    req = f'GET {path} HTTP/1.1\r\nHost: {host}\r\nUser-Agent: proxy-checker-cli/{__version__}\r\nAccept: */*\r\nConnection: close\r\n\r\n'
     sock.sendall(req.encode())
     data = b''
     while True:
@@ -87,7 +87,6 @@ def send_http_get(sock, host, path='/json'):
 
 
 def parse_json_response(raw):
-    # 只取 HTTP body 部分
     idx = raw.find('\r\n\r\n')
     if idx != -1:
         raw = raw[idx+4:]
@@ -98,11 +97,9 @@ def parse_json_response(raw):
 
 
 def check_anonymity(headers):
-    # 简单匿名度判断：检测 Via/Forwarded/X-Forwarded-For 等头
     h = {k.lower(): v for k, v in headers.items()}
     leak_headers = ['x-forwarded-for', 'x-real-ip', 'via', 'forwarded', 'client-ip']
     if any(k in h for k in leak_headers):
-        # 如果有 proxy-connection 或 via，多为透明或匿名
         if 'via' in h or 'proxy-connection' in h:
             return 'transparent'
         return 'anonymous'
@@ -150,6 +147,7 @@ def check_proxy(proxy_url, timeout=10):
 
 def main():
     parser = argparse.ArgumentParser(description='代理检测工具')
+    parser.add_argument('--version', action='version', version=f'proxy-checker-cli {__version__}')
     parser.add_argument('--proxy', '-p', help='单个代理地址，如 socks5://127.0.0.1:1080')
     parser.add_argument('--list', '-l', help='代理列表文件，每行一个代理')
     parser.add_argument('--timeout', '-t', type=int, default=10, help='超时时间（秒）')
