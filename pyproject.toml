@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "proxy-checker-cli"
+version = "1.0.0"
+description = "跨平台命令行代理检测工具，支持 SOCKS5 / HTTP 代理的连通性、延迟、匿名度与出口 IP 检测"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "全网低价IP", email = "service@socks5ip-mail.com" }]
+keywords = ["proxy", "socks5", "http-proxy", "network-tools", "ip-checker"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Internet",
+    "Topic :: System :: Networking",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://socks5ip.com.cn"
+Repository = "https://github.com/socks5ip/proxy-checker-cli"
+
+[project.scripts]
+proxy-checker = "proxy_checker:main"
