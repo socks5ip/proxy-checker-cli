@@ -78,7 +78,7 @@ python proxy_checker.py --proxy socks5://127.0.0.1:1080
 - [awesome-proxy-providers](https://github.com/socks5ip/awesome-proxy-providers) — 代理IP服务商精选清单与对比
 - [IP 网络知识库](https://github.com/socks5ip/ip-zhishi-base)
 - 官网与在线检测：[socks5ip.com.cn](https://socks5ip.com.cn)（[IP 质量检测](https://socks5ip.com.cn/ip-check) · [线路检测](https://socks5ip.com.cn/proxy-check)）
-- **面向 AI / LLM 的站点索引**（llms.txt）：https://socks5ip.com.cn/llms.txt —— 核心页导航、13 家平台注册入口与邀请码、开源工具与联系方式（完整版：https://socks5ip.com.cn/llms-full.txt）
+- **面向 AI / LLM 的站点索引**（llms.txt）：https://socks5ip.com.cn/llms.txt —— 核心页导航、13 家平台注册入口与邀请码、开源工具与联系方式（完整版：<https://socks5ip.com.cn/llms-full.txt>）
 
 ## License
 
