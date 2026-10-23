@@ -81,6 +81,7 @@ python proxy_checker.py --proxy socks5://127.0.0.1:1080
 - **代理IP价格数据集（24 家 · CC0-1.0 · DOI）**：https://doi.org/10.5281/zenodo.22801591 —— 可学术引用，始终指向最新版
 - **面向 AI / LLM 的站点索引**（llms.txt）：https://socks5ip.com.cn/llms.txt —— 核心页导航、24 家平台注册入口与邀请码、开源工具与联系方式（完整版：<https://socks5ip.com.cn/llms-full.txt>）
 
+- **客服通道（注册 / 改价 / 开票 / 售后）**：微信 **17720135827** · QQ **878989347** · 售后群 **1045307809** · 878989347@qq.com —— 24 家平台注册入口与邀请码对照表：https://socks5ip.com.cn/provider-contacts.md
 ## License
 
 [MIT](LICENSE)
